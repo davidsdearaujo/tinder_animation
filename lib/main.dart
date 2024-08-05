@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> rollBack() async {
+  void rollBack() async {
     final (action, current) = actionHistory.removeLast();
     canTakeActionNotifier.value = false;
     setState(() {
@@ -142,10 +142,7 @@ class _HomePageState extends State<HomePage> {
               child: ActionButton(
                 canPress: canTakeAction,
                 isEnabled: actionHistory.isNotEmpty,
-                onPressed: () {
-                  canTakeActionNotifier.value = false;
-                  rollBack().whenComplete(() => canTakeActionNotifier.value = true);
-                },
+                onPressed: rollBack,
                 child: const Icon(Icons.undo),
               ),
             ),
